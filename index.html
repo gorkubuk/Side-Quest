@@ -3,32 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Side Quest — Sınırlarını Zorla</title>
+  <title>SIDE QUEST — Level Up Your Life</title>
   <meta name="description" content="Monoton hayattan çık. Crazy görevleri tamamla, kanıtla, XP kazan.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+<!-- SCANLINE OVERLAY -->
+<div class="scanlines"></div>
 
 <!-- NAV -->
 <nav class="nav">
   <div class="nav-inner">
     <a href="#" class="nav-logo" onclick="navigate('home'); return false;">
-      <span class="logo-icon">⚔️</span>
-      <span class="logo-text">Side Quest</span>
+      <span class="logo-icon">⚔</span> SIDE QUEST
     </a>
     <div class="nav-links">
-      <a href="#" class="nav-link" onclick="navigate('home'); return false;">Görevler</a>
-      <a href="#" class="nav-link" onclick="navigate('leaderboard'); return false;">Sıralama</a>
-      <a href="#" class="nav-link" id="nav-profile-link" style="display:none" onclick="navigate('profile'); return false;">Profilim</a>
+      <a href="#" class="nav-link" onclick="navigate('home'); return false;">[ GÖREVLER ]</a>
+      <a href="#" class="nav-link" onclick="navigate('leaderboard'); return false;">[ SIRA ]</a>
+      <a href="#" class="nav-link" id="nav-profile-link" style="display:none" onclick="navigate('profile'); return false;">[ PROFİL ]</a>
     </div>
     <div class="nav-right">
       <div id="nav-user" style="display:none" class="nav-user">
-        <div class="nav-xp" id="nav-xp">0 XP</div>
-        <div class="nav-avatar" id="nav-avatar" onclick="navigate('profile')"></div>
+        <span class="nav-xp" id="nav-xp">0 XP</span>
+        <span class="nav-avatar" id="nav-avatar" onclick="navigate('profile')"></span>
       </div>
-      <button class="btn-login" id="nav-login-btn" onclick="openAuthModal()">Giriş Yap</button>
+      <button class="btn-login" id="nav-login-btn" onclick="openAuthModal()">LOGIN</button>
     </div>
   </div>
 </nav>
@@ -38,44 +40,49 @@
 
   <!-- HOME -->
   <div id="view-home" class="view">
+
     <section class="hero">
-      <div class="hero-badge">⚔️ Community-Driven Challenge Platform</div>
-      <h1 class="hero-title">Hayatını<br><span class="hero-accent">Sınırlarının</span><br>Dışına Çıkart</h1>
-      <p class="hero-desc">Monoton günlük yaşamdan çık. Crazy görevleri tamamla, kanıtla, XP kazan ve sınırlarını zorlayan insanlarla bağlan.</p>
+      <div class="hero-insert">▶ INSERT COIN ◀</div>
+      <h1 class="hero-title">SIDE QUEST<br><span class="hero-accent">GENERATOR</span></h1>
+      <p class="hero-sub">// LEVEL UP YOUR BORING LIFE //</p>
+      <p class="hero-desc">Monoton hayatından çık. Crazy görevleri tamamla,<br>kanıtla, XP kazan ve leaderboard'a çık.</p>
       <div class="hero-actions">
-        <a href="#quests-section" class="btn-primary" onclick="document.getElementById('quests-section').scrollIntoView({behavior:'smooth'}); return false;">Görevlere Bak</a>
-        <a href="#" class="btn-ghost" onclick="navigate('leaderboard'); return false;">Sıralama →</a>
+        <a href="#" class="btn-primary" onclick="document.getElementById('quests-section').scrollIntoView({behavior:'smooth'}); return false;">▶ GÖREVLERE BAK</a>
+        <a href="#" class="btn-secondary" onclick="navigate('leaderboard'); return false;">SIRA LİSTESİ ▶</a>
       </div>
       <div class="hero-stats">
         <div class="hero-stat">
-          <div class="hero-stat-num">35+</div>
-          <div class="hero-stat-label">Görev</div>
+          <div class="hero-stat-num">35</div>
+          <div class="hero-stat-label">GÖREV</div>
         </div>
         <div class="hero-stat">
           <div class="hero-stat-num" id="stat-completions">0</div>
-          <div class="hero-stat-label">Tamamlama</div>
+          <div class="hero-stat-label">TAMAMLAMA</div>
         </div>
         <div class="hero-stat">
           <div class="hero-stat-num" id="stat-users">0</div>
-          <div class="hero-stat-label">Kahraman</div>
+          <div class="hero-stat-label">KAHRAMAN</div>
         </div>
       </div>
     </section>
 
     <section class="quests-section" id="quests-section">
+      <div class="section-title-bar">
+        <span class="blink">▶</span> GÖREV SEÇ
+      </div>
       <div class="filters">
         <div class="filter-group">
-          <button class="filter-btn active" data-filter="category" data-value="all">Tümü</button>
-          <button class="filter-btn" data-filter="category" data-value="personal">Kişisel</button>
-          <button class="filter-btn" data-filter="category" data-value="workplace">İşyeri</button>
-          <button class="filter-btn" data-filter="category" data-value="creative">Yaratıcı</button>
-          <button class="filter-btn" data-filter="category" data-value="business">Girişim</button>
+          <button class="filter-btn active" data-filter="category" data-value="all">TÜMÜ</button>
+          <button class="filter-btn" data-filter="category" data-value="personal">KİŞİSEL</button>
+          <button class="filter-btn" data-filter="category" data-value="workplace">İŞYERİ</button>
+          <button class="filter-btn" data-filter="category" data-value="creative">YARATICI</button>
+          <button class="filter-btn" data-filter="category" data-value="business">GİRİŞİM</button>
         </div>
         <div class="filter-group">
-          <button class="filter-btn active" data-filter="difficulty" data-value="all">Tüm Zorluklar</button>
-          <button class="filter-btn" data-filter="difficulty" data-value="easy">Kolay</button>
-          <button class="filter-btn" data-filter="difficulty" data-value="medium">Orta</button>
-          <button class="filter-btn" data-filter="difficulty" data-value="hard">Zor</button>
+          <button class="filter-btn active" data-filter="difficulty" data-value="all">TÜM ZORLUK</button>
+          <button class="filter-btn easy" data-filter="difficulty" data-value="easy">KOLAY</button>
+          <button class="filter-btn medium" data-filter="difficulty" data-value="medium">ORTA</button>
+          <button class="filter-btn hard" data-filter="difficulty" data-value="hard">ZOR</button>
         </div>
       </div>
       <div class="quests-grid" id="quests-grid"></div>
@@ -88,16 +95,15 @@
   <!-- LEADERBOARD -->
   <div id="view-leaderboard" class="view" style="display:none">
     <div class="page-header">
-      <h2>🏆 Sıralama</h2>
-      <p>En çok XP kazananlar</p>
+      <div class="section-title-bar"><span class="blink">▶</span> HIGH SCORES</div>
     </div>
     <div class="leaderboard-wrap">
       <div class="leaderboard-tabs">
-        <button class="lb-tab active" data-period="alltime">Tüm Zamanlar</button>
-        <button class="lb-tab" data-period="monthly">Bu Ay</button>
+        <button class="lb-tab active" data-period="alltime">TÜM ZAMANLAR</button>
+        <button class="lb-tab" data-period="monthly">BU AY</button>
       </div>
       <div class="leaderboard-list" id="leaderboard-list">
-        <div class="empty-state">Henüz kimse yok. İlk tamamlayan sen ol!</div>
+        <div class="empty-state">HENÜZ VERİ YOK...</div>
       </div>
     </div>
   </div>
@@ -112,30 +118,26 @@
 <!-- AUTH MODAL -->
 <div class="modal-overlay" id="auth-modal" onclick="closeAuthModal()">
   <div class="modal-box" onclick="event.stopPropagation()">
-    <button class="modal-close" onclick="closeAuthModal()">✕</button>
-
+    <button class="modal-close" onclick="closeAuthModal()">[ X ]</button>
     <div id="auth-view-login">
-      <h3 class="modal-title">Hoş Geldin, Kahraman</h3>
-      <p class="modal-sub">Görevleri tamamlamak için giriş yap</p>
+      <div class="modal-title">// LOGIN //</div>
       <form onsubmit="loginUser(event)">
-        <input class="form-input" type="email" id="login-email" placeholder="E-posta" required>
-        <input class="form-input" type="password" id="login-password" placeholder="Şifre" required>
-        <button type="submit" class="btn-primary btn-full">Giriş Yap</button>
+        <input class="form-input" type="email" id="login-email" placeholder="E-POSTA" required>
+        <input class="form-input" type="password" id="login-password" placeholder="ŞİFRE" required>
+        <button type="submit" class="btn-primary btn-full">▶ GİRİŞ YAP</button>
       </form>
-      <p class="auth-switch">Hesabın yok mu? <a href="#" onclick="showRegister(); return false;">Kayıt Ol</a></p>
+      <p class="auth-switch">Hesabın yok mu? <a href="#" onclick="showRegister(); return false;">KAYIT OL ▶</a></p>
       <div class="auth-error" id="login-error"></div>
     </div>
-
     <div id="auth-view-register" style="display:none">
-      <h3 class="modal-title">Macerana Başla</h3>
-      <p class="modal-sub">Hesap oluştur, XP kazan</p>
+      <div class="modal-title">// KAYIT OL //</div>
       <form onsubmit="registerUser(event)">
-        <input class="form-input" type="text" id="reg-name" placeholder="Kullanıcı Adı" required>
-        <input class="form-input" type="email" id="reg-email" placeholder="E-posta" required>
-        <input class="form-input" type="password" id="reg-password" placeholder="Şifre (min 6 karakter)" required minlength="6">
-        <button type="submit" class="btn-primary btn-full">Hesap Oluştur</button>
+        <input class="form-input" type="text" id="reg-name" placeholder="KULLANICI ADI" required>
+        <input class="form-input" type="email" id="reg-email" placeholder="E-POSTA" required>
+        <input class="form-input" type="password" id="reg-password" placeholder="ŞİFRE (MIN 6)" required minlength="6">
+        <button type="submit" class="btn-primary btn-full">▶ HESAP OLUŞTUR</button>
       </form>
-      <p class="auth-switch">Hesabın var mı? <a href="#" onclick="showLogin(); return false;">Giriş Yap</a></p>
+      <p class="auth-switch">Hesabın var mı? <a href="#" onclick="showLogin(); return false;">GİRİŞ YAP ▶</a></p>
       <div class="auth-error" id="reg-error"></div>
     </div>
   </div>
@@ -144,34 +146,34 @@
 <!-- PROOF MODAL -->
 <div class="modal-overlay" id="proof-modal" onclick="closeProofModal()">
   <div class="modal-box modal-wide" onclick="event.stopPropagation()">
-    <button class="modal-close" onclick="closeProofModal()">✕</button>
-    <h3 class="modal-title">Görevi Kanıtla</h3>
-    <p class="modal-sub" id="proof-quest-title"></p>
+    <button class="modal-close" onclick="closeProofModal()">[ X ]</button>
+    <div class="modal-title">// GÖREVI KANITLA //</div>
+    <div class="modal-sub" id="proof-quest-title"></div>
     <form onsubmit="submitProof(event)" id="proof-form">
-      <label class="form-label">Ne yaptın? (min 50 kelime)</label>
-      <textarea class="form-input form-textarea" id="proof-desc" placeholder="Yaşananları detaylıca anlat. Ne zaman? Nerede? Ne oldu? Nasıl hissettirdi?" required></textarea>
-      <div class="word-count" id="word-count">0 / min 50 kelime</div>
+      <label class="form-label">► NE YAPTIN? (MIN 50 KELİME)</label>
+      <textarea class="form-input form-textarea" id="proof-desc" placeholder="Yaşananları detaylıca anlat..." required></textarea>
+      <div class="word-count" id="word-count">0 / MIN 50 KELİME</div>
       <div class="proof-meta">
         <div class="form-group">
-          <label class="form-label">Tarih</label>
+          <label class="form-label">► TARİH</label>
           <input class="form-input" type="date" id="proof-date" required>
         </div>
         <div class="form-group">
-          <label class="form-label">Konum</label>
-          <input class="form-input" type="text" id="proof-location" placeholder="Ofis, Kadıköy..." required>
+          <label class="form-label">► KONUM</label>
+          <input class="form-input" type="text" id="proof-location" placeholder="OFİS, KADIKÖY..." required>
         </div>
         <div class="form-group">
-          <label class="form-label">Tanık Sayısı</label>
+          <label class="form-label">► TANIK</label>
           <input class="form-input" type="number" id="proof-witnesses" min="0" max="50" value="0" required>
         </div>
       </div>
       <div class="proof-rules">
-        <span>⚡ Min 50 kelime</span>
-        <span>📍 Konum belirt</span>
-        <span>👥 Tanık sayısı</span>
-        <span>✅ Topluluk onaylayacak</span>
+        <span>⚡ MIN 50 KELİME</span>
+        <span>📍 KONUM</span>
+        <span>👥 TANIK SAYISI</span>
+        <span>✅ TOPLULUK ONAYLAYACAK</span>
       </div>
-      <button type="submit" class="btn-primary btn-full" id="proof-submit-btn">Gönder & XP Kazan</button>
+      <button type="submit" class="btn-primary btn-full" id="proof-submit-btn">▶ GÖNDER &amp; XP KAZAN</button>
     </form>
     <div class="auth-error" id="proof-error"></div>
   </div>
