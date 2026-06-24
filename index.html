@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Side Quest — Sınırlarını Zorla</title>
+  <meta name="description" content="Monoton hayattan çık. Crazy görevleri tamamla, kanıtla, XP kazan.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo" onclick="navigate('home'); return false;">
+      <span class="logo-icon">⚔️</span>
+      <span class="logo-text">Side Quest</span>
+    </a>
+    <div class="nav-links">
+      <a href="#" class="nav-link" onclick="navigate('home'); return false;">Görevler</a>
+      <a href="#" class="nav-link" onclick="navigate('leaderboard'); return false;">Sıralama</a>
+      <a href="#" class="nav-link" id="nav-profile-link" style="display:none" onclick="navigate('profile'); return false;">Profilim</a>
+    </div>
+    <div class="nav-right">
+      <div id="nav-user" style="display:none" class="nav-user">
+        <div class="nav-xp" id="nav-xp">0 XP</div>
+        <div class="nav-avatar" id="nav-avatar" onclick="navigate('profile')"></div>
+      </div>
+      <button class="btn-login" id="nav-login-btn" onclick="openAuthModal()">Giriş Yap</button>
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- HOME -->
+  <div id="view-home" class="view">
+    <section class="hero">
+      <div class="hero-badge">⚔️ Community-Driven Challenge Platform</div>
+      <h1 class="hero-title">Hayatını<br><span class="hero-accent">Sınırlarının</span><br>Dışına Çıkart</h1>
+      <p class="hero-desc">Monoton günlük yaşamdan çık. Crazy görevleri tamamla, kanıtla, XP kazan ve sınırlarını zorlayan insanlarla bağlan.</p>
+      <div class="hero-actions">
+        <a href="#quests-section" class="btn-primary" onclick="document.getElementById('quests-section').scrollIntoView({behavior:'smooth'}); return false;">Görevlere Bak</a>
+        <a href="#" class="btn-ghost" onclick="navigate('leaderboard'); return false;">Sıralama →</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-num">35+</div>
+          <div class="hero-stat-label">Görev</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num" id="stat-completions">0</div>
+          <div class="hero-stat-label">Tamamlama</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num" id="stat-users">0</div>
+          <div class="hero-stat-label">Kahraman</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="quests-section" id="quests-section">
+      <div class="filters">
+        <div class="filter-group">
+          <button class="filter-btn active" data-filter="category" data-value="all">Tümü</button>
+          <button class="filter-btn" data-filter="category" data-value="personal">Kişisel</button>
+          <button class="filter-btn" data-filter="category" data-value="workplace">İşyeri</button>
+          <button class="filter-btn" data-filter="category" data-value="creative">Yaratıcı</button>
+          <button class="filter-btn" data-filter="category" data-value="business">Girişim</button>
+        </div>
+        <div class="filter-group">
+          <button class="filter-btn active" data-filter="difficulty" data-value="all">Tüm Zorluklar</button>
+          <button class="filter-btn" data-filter="difficulty" data-value="easy">Kolay</button>
+          <button class="filter-btn" data-filter="difficulty" data-value="medium">Orta</button>
+          <button class="filter-btn" data-filter="difficulty" data-value="hard">Zor</button>
+        </div>
+      </div>
+      <div class="quests-grid" id="quests-grid"></div>
+    </section>
+  </div>
+
+  <!-- QUEST DETAIL -->
+  <div id="view-quest" class="view" style="display:none"></div>
+
+  <!-- LEADERBOARD -->
+  <div id="view-leaderboard" class="view" style="display:none">
+    <div class="page-header">
+      <h2>🏆 Sıralama</h2>
+      <p>En çok XP kazananlar</p>
+    </div>
+    <div class="leaderboard-wrap">
+      <div class="leaderboard-tabs">
+        <button class="lb-tab active" data-period="alltime">Tüm Zamanlar</button>
+        <button class="lb-tab" data-period="monthly">Bu Ay</button>
+      </div>
+      <div class="leaderboard-list" id="leaderboard-list">
+        <div class="empty-state">Henüz kimse yok. İlk tamamlayan sen ol!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROFILE -->
+  <div id="view-profile" class="view" style="display:none">
+    <div id="profile-content"></div>
+  </div>
+
+</main>
+
+<!-- AUTH MODAL -->
+<div class="modal-overlay" id="auth-modal" onclick="closeAuthModal()">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeAuthModal()">✕</button>
+
+    <div id="auth-view-login">
+      <h3 class="modal-title">Hoş Geldin, Kahraman</h3>
+      <p class="modal-sub">Görevleri tamamlamak için giriş yap</p>
+      <form onsubmit="loginUser(event)">
+        <input class="form-input" type="email" id="login-email" placeholder="E-posta" required>
+        <input class="form-input" type="password" id="login-password" placeholder="Şifre" required>
+        <button type="submit" class="btn-primary btn-full">Giriş Yap</button>
+      </form>
+      <p class="auth-switch">Hesabın yok mu? <a href="#" onclick="showRegister(); return false;">Kayıt Ol</a></p>
+      <div class="auth-error" id="login-error"></div>
+    </div>
+
+    <div id="auth-view-register" style="display:none">
+      <h3 class="modal-title">Macerana Başla</h3>
+      <p class="modal-sub">Hesap oluştur, XP kazan</p>
+      <form onsubmit="registerUser(event)">
+        <input class="form-input" type="text" id="reg-name" placeholder="Kullanıcı Adı" required>
+        <input class="form-input" type="email" id="reg-email" placeholder="E-posta" required>
+        <input class="form-input" type="password" id="reg-password" placeholder="Şifre (min 6 karakter)" required minlength="6">
+        <button type="submit" class="btn-primary btn-full">Hesap Oluştur</button>
+      </form>
+      <p class="auth-switch">Hesabın var mı? <a href="#" onclick="showLogin(); return false;">Giriş Yap</a></p>
+      <div class="auth-error" id="reg-error"></div>
+    </div>
+  </div>
+</div>
+
+<!-- PROOF MODAL -->
+<div class="modal-overlay" id="proof-modal" onclick="closeProofModal()">
+  <div class="modal-box modal-wide" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeProofModal()">✕</button>
+    <h3 class="modal-title">Görevi Kanıtla</h3>
+    <p class="modal-sub" id="proof-quest-title"></p>
+    <form onsubmit="submitProof(event)" id="proof-form">
+      <label class="form-label">Ne yaptın? (min 50 kelime)</label>
+      <textarea class="form-input form-textarea" id="proof-desc" placeholder="Yaşananları detaylıca anlat. Ne zaman? Nerede? Ne oldu? Nasıl hissettirdi?" required></textarea>
+      <div class="word-count" id="word-count">0 / min 50 kelime</div>
+      <div class="proof-meta">
+        <div class="form-group">
+          <label class="form-label">Tarih</label>
+          <input class="form-input" type="date" id="proof-date" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Konum</label>
+          <input class="form-input" type="text" id="proof-location" placeholder="Ofis, Kadıköy..." required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tanık Sayısı</label>
+          <input class="form-input" type="number" id="proof-witnesses" min="0" max="50" value="0" required>
+        </div>
+      </div>
+      <div class="proof-rules">
+        <span>⚡ Min 50 kelime</span>
+        <span>📍 Konum belirt</span>
+        <span>👥 Tanık sayısı</span>
+        <span>✅ Topluluk onaylayacak</span>
+      </div>
+      <button type="submit" class="btn-primary btn-full" id="proof-submit-btn">Gönder & XP Kazan</button>
+    </form>
+    <div class="auth-error" id="proof-error"></div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
